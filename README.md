@@ -3,11 +3,13 @@ In this thesis, the design and implementation of an advanced controller for the 
 SCARA robots have become one of the most widely used robots in various industries due to their high precision and speed in performing industrial tasks. The main objective of this project is to design and implement an advanced controller for the SCARA robot, which will enhance the robot's precision, speed, stability of performance, and efficiency in performing industrial tasks. 
 The designed controller uses a dedicated STM32 processor. This processor serves as the control core of the robot, responsible for controlling linear and angular automatic motion and routing between positions. Additionally, this controller has a display for locally showing control information and a web server that enables remote control of the robot.
 
-![image](https://github.com/user-attachments/assets/269563f7-709c-4d35-b6c5-6cb5fd954c15)
+                            ![IMG_20240221_141334](https://github.com/user-attachments/assets/b8fbc557-c2d8-4932-ad86-5d542fe5c138)
 
-![image](https://github.com/user-attachments/assets/7641e7ff-b6fd-40d3-b618-802da7442a3c)
 
-![image](https://github.com/user-attachments/assets/3d14f077-ecfe-4a6c-ab42-c9dd85867975)
+![IMG_20241127_123937](https://github.com/user-attachments/assets/7b2251ab-1b88-4500-87d8-91eab44c906c)
+
+
+                            ![image](https://github.com/user-attachments/assets/3d14f077-ecfe-4a6c-ab42-c9dd85867975)
 
 The designed controller for the SCARA robot is an advanced electronic system responsible for controlling and coordinating the precise and rapid movements of the robot. 
 This controller, using advanced algorithms and optimization techniques, is capable of effectively responding to environmental changes and executing repetitive industrial tasks with high precision. 
