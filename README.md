@@ -1,7 +1,7 @@
 # SCARA-Robot-Controller
-In this thesis, the design and implementation of an advanced controller for the SCARA robot have been addressed. 
-SCARA robots have become one of the most widely used robots in various industries due to their high precision and speed in performing industrial tasks. The main objective of this project is to design and implement an advanced controller for the SCARA robot, which will enhance the robot's precision, speed, stability of performance, and efficiency in performing industrial tasks. 
-The designed controller uses a dedicated STM32 processor. This processor serves as the control core of the robot, responsible for controlling linear and angular automatic motion and routing between positions. Additionally, this controller has a display for locally showing control information and a web server that enables remote control of the robot.
+در این پایان‌نامه، به طراحی و پیاده‌سازی یک کنترلر پیشرفته برای ربات اسکارا پرداخته شده است. ربات‌های اسکارا به دلیل دقت و سرعت بالا در انجام وظایف صنعتی، به یکی از پرکاربردترین ربات‌ها در صنایع مختلف تبدیل شده‌اند. هدف اصلی این پروژه طراحی و پیاده‌سازی یک کنترلر پیشرفته برای ربات اسکارا می باشد که باعث افزایش دقت، سرعت، پایداری عملکرد و کارایی ربات در انجام وظایف صنعتی خواهد شد.
+کنترلر طراحی شده از یک پردازنده اختصاصی STM32 استفاده می کند این پردازنده به عنوان هسته کنترلی ربات، وظیفه کنترل حرکت و مسیریابی خودکار بصورت خطی و زاویه ای بین موقعیت ها را داراست. همچنین این کنترلر دارای یک نمایشگر برای نمایش اطلاعات کنترلی به صورت محلی و یک وب سرور که امکان کنترل ربات از راه دور را فراهم می‌کند.
+
 
 ![IMG_20240221_141334](https://github.com/user-attachments/assets/b8fbc557-c2d8-4932-ad86-5d542fe5c138)
 
@@ -9,6 +9,4 @@ The designed controller uses a dedicated STM32 processor. This processor serves 
 
 ![IMG_20250202_110842](https://github.com/user-attachments/assets/fef9a736-36c0-409e-8632-45936291a393)
 
-The designed controller for the SCARA robot is an advanced electronic system responsible for controlling and coordinating the precise and rapid movements of the robot. 
-This controller, using advanced algorithms and optimization techniques, is capable of effectively responding to environmental changes and executing repetitive industrial tasks with high precision. 
-The main goal of this controller is to enhance the efficiency, accuracy, and stability of the SCARA robot in production and assembly processes. سلام
+کنترلر طراحی شده برای ربات اسکارا یک سیستم الکترونیکی پیشرفته است که وظیفه دارد حرکات دقیق و سریع ربات را کنترل و هماهنگ کند. این کنترلر با استفاده از الگوریتم‌های پیشرفته و تکنیک‌های بهینه‌سازی، توانایی دارد به طور موثر به تغییرات محیطی پاسخ دهد و وظایف تکراری صنعتی را با دقت بالا اجرا کند. هدف اصلی این کنترلر افزایش کارایی، دقت، و پایداری ربات اسکارا در فرآیندهای تولیدی و مونتاژی است.
