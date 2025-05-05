@@ -1,0 +1,1662 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Multiple Sliders Example</title>	
+        <style>
+            body {
+            text-align: center;
+            color: #000000;
+            font-family: Arial, sans-serif;
+            --s: 82px;
+            --c1: #b2b2b2;
+            --c2: #ffffff;
+            --c3: #d9d9d9;
+
+            --_g: var(--c3) 0 120deg, #0000 0;
+            background: conic-gradient(from -60deg at 50% calc(100% / 3), var(--_g)),
+                conic-gradient(from 120deg at 50% calc(200% / 3), var(--_g)),
+                conic-gradient(
+                from 60deg at calc(200% / 3),
+                var(--c3) 60deg,
+                var(--c2) 0 120deg,
+                #0000 0
+                ),
+                conic-gradient(from 180deg at calc(100% / 3), var(--c1) 60deg, var(--_g)),
+                linear-gradient(
+                90deg,
+                var(--c1) calc(100% / 6),
+                var(--c2) 0 50%,
+                var(--c1) 0 calc(500% / 6),
+                var(--c2) 0
+                );
+            background-size: calc(1.732 * var(--s)) var(--s);
+            }
+
+            .Loader {
+            margin-left: 130px;
+            display: none;
+            border: 15px solid #30309d;
+            border-top: 15px solid #1df1c3;
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            animation: spin 1.5s linear infinite;
+            }
+
+            @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+            }
+
+            table {
+            border-collapse: collapse; 
+            margin: auto; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            }
+
+
+            td {
+            border: 1px solid #100303; 
+            padding: 12px; 
+            text-align: center;
+            transition: background-color 0.3s;
+            background-color:#eee;
+            }
+
+            td:hover {
+            background-color: #e0f7e0;
+            }
+
+            input[type="range"] {
+            -webkit-appearance: none; 
+            width: 60%; 
+            margin: 0 10px; 
+            background: #ddd; 
+            border-radius: 5px; 	
+            height: 4px; 
+            outline: none;
+            }
+
+            input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none; 
+            width: 17px; 
+            height: 17px; 	 
+            border-radius: 50%; 
+            background: #4CAF50; 
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            }
+
+            input[type="range"]::-webkit-slider-runnable-track {
+            background: #ddd; 
+            border-radius: 5px;
+            }
+
+            input[type="number"] {
+            width:50px; 
+            }
+
+            body{
+            text-align:center; 
+            }
+
+            .SliderDisplay {
+            width: 35px;
+            height: 25px;
+            border: 1px solid black;
+            text-align: center;
+            padding-top: 5px;
+            border-radius: 5px; 
+            text-align: center; 
+            background-color: #f9f9f9; 
+            font-weight:bold; 
+            color:#333; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+            transition: background-color 0.3s,transform 0.3s;
+            }
+
+            .SliderDisplay:hover {
+            background-color: #e0f7e0; 
+            transform: scale(1.3);
+            }
+
+            .button1{
+            width:70px; 
+            height:40px; 
+            text-align:center; 
+            margin-left:10px; 
+            background-color:#16CEE4; 
+            color:#000000; 
+            font-size:13px;
+            border-radius:3px; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+            transition: background-color 0.3s,transform 0.3s;
+            cursor: pointer;
+            }	
+
+            .button2{
+            width:auto;
+            height: auto;
+            text-align:center;
+            cursor: pointer;
+            background-color:#16CEE4; 
+            color:#000000; 
+            font-size:15px;
+            border-radius:3px; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+            transition: background-color 0.3s,transform 0.3s;
+            }
+            .button3 {
+            width: 80px;
+            height: 25px;
+            text-align: center;
+            margin-left:10px;
+            margin-top:10px;
+            margin-bottom:10px;
+            cursor: pointer;
+            background-color: #FFFFFF;
+            color:#000000; 
+            border-radius:3px; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+            transition: background-color 0.3s,transform 0.3s;
+            }
+
+            .button4 {
+            width: 70px;
+            height: 25px;
+            text-align: center;
+            margin-top: 10px;
+            cursor: pointer;
+            background-color:#16CEE4; 	
+            color:#000000; 
+            border-radius:3px; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+            transition: background-color 0.3s,transform 0.3s;
+            }
+
+            .button5 {
+            width: 45px;
+            height: 20px;
+            text-align: center;
+            cursor: pointer;
+            margin-top: 5px;
+            margin-bottom: 40px;
+            color:#000000; 
+            border-radius:3px; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+            transition: background-color 0.3s,transform 0.3s;
+            }
+
+            .button6 {
+            width: auto;
+            height: 30px;
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            background-color:#16CEE4; 	
+            color:#000000; 
+            border-radius:3px; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+            transition: background-color 0.3s,transform 0.3s;
+            }
+
+            .button7 {
+            width: 60px;
+            height: 35px;
+            text-align: center;
+            font-size:15px;
+            margin-top: 5px;
+            cursor: pointer;
+            background-color:#16CEE4; 	
+            color:#000000; 
+            border-radius:5px; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+            transition: background-color 0.3s,transform 0.3s;
+            }
+
+            .button1:hover,
+            .button2:hover,
+            .button4:hover,
+            .button6:hover,
+            .button7:hover {
+            background-color: #a659f3;
+            transform: scale(1.1);
+            }
+
+            #TS_As {
+            text-align: ltr;
+            width: 350px;
+            height: 350px;
+            }
+
+            #ZSlider{
+            width:300px;
+            }
+
+            #BasicSettingBox {
+            display: block;
+            padding-left: 50px;
+            padding-bottom: 80px;
+            }
+
+            #AdvancedsettingBox {
+            display: none;
+            }
+
+            #HomingSettingBox {
+            display: none;
+            }
+
+            #HomeBox {
+            position: relative;
+            display: flex;
+            place-content: center;
+            place-items: center;
+            overflow: hidden;
+            border-radius: 20px;
+            display: none;
+            }
+
+            #TH1-1 {
+            width: 250px;
+            height: 80px;
+            }
+
+            #TH2-1,
+            #TH3-1,
+            #TH4-1 {
+            height: 80px;
+            }
+
+            #TH1-2 {
+            width: 40px;
+            }
+
+            #TH1-3 {
+            width: 400px;
+            }
+
+            #TH1-4 {
+            width: 150px;
+            }
+
+            #TH5-2 {
+            width: 400px;
+            height: 50px;
+            direction: ltr;
+            }
+
+            #TS1-1 {
+            width: 500px;
+            height: 50px;
+            }
+
+            #TS2-1,
+            #TS3-1,
+            #TS4-1 {
+            width: 100px;
+            height: 110px;
+            cursor: pointer;
+            }
+            
+            #TS2-2 {
+            height: 400px;
+            }
+
+            #TS_As2-2 {
+            width: 200px;
+            }
+
+            #TS_As2-1,
+            #TS_As3-1,
+            #TS_As4-1,
+            #TS_As5-1,
+            #TS_As6-1{
+            cursor: pointer;
+            height: 50px;
+            }
+
+            #SettingBox {
+            display: none;
+            width: 500px;
+            height: 500px;
+            margin: auto;
+            }
+
+            #GcodeFileBox {
+            display: none;
+            padding: auto;
+            height: auto;
+            width: auto;
+            }
+
+            #GcodeTextBox {
+            display: block;
+            height: auto;
+            width: auto;
+            }
+
+            #PaintBox {
+            display: none;
+            height: auto;
+            width: auto;
+            }
+
+            #AboutBox {
+            display: none;
+            height: auto;
+            width: auto;
+            background-color: #FFFFFF;
+            }
+
+            #ButtonGcodeFile {
+            background-color: #FFFFFF;
+            }
+
+            #ButtonGcodeText {
+            background-color: #00E820;
+            }
+
+            #ButtonGcodePaint {
+            background-color: #FFFFFF;
+            }
+
+            #GcodeText {
+            width: 350px;
+            height: 150px;
+            }
+
+            #PaintCanvas {
+            display: block;
+            margin: 20px auto;
+            border: 2px solid #000; /* خط دور دایره */
+            border-radius:0 500px 500px 0; /* گرد کردن بالا */
+            }
+
+            #AdvSetBox1 {
+            display: block;
+            }
+
+            #AdvSetBox2,
+            #AdvSetBox3,
+            #AdvSetBox4,
+            #AdvSetBox5 {
+            display: none;
+            }
+
+            #Position1 {
+            border-color: #00E820;
+            }
+
+            #zMin {
+            width: 150px;
+            height: 5px;
+            background: #ddd;
+            border-radius: 5px;
+            outline: none; 
+            transition: background 0.3s ease-in-out;
+            }
+
+            #zMax {
+            width: 150px;
+            height: 5px;
+            background: #ddd;
+            border-radius: 5px;
+            outline: none; 
+            transition: background 0.3s ease-in-out;
+            }
+
+
+            #wifi-loader {
+                margin:auto;
+                margin-top:250px;
+                --background: #c3c8de;
+                --front-color: #c229f0;
+                --back-color: #ffffff;
+                --text-color: #ffffff;
+                width: 80px;
+                height: 80px;
+                border-radius: 70px;
+                position: relative;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            
+            #wifi-loader svg {
+                position: absolute;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            
+            #wifi-loader svg circle {
+                position: absolute;
+                fill: none;
+                stroke-width: 6px;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+                transform: rotate(-100deg);
+                transform-origin: center;
+            }
+            
+            #wifi-loader svg circle.back {
+                stroke: var(--back-color);
+            }
+            
+            #wifi-loader svg circle.front {
+                stroke: var(--front-color);
+            }
+            
+            #wifi-loader svg.circle-outer {
+                height: 86px;
+                width: 86px;
+            }
+            
+            #wifi-loader svg.circle-outer circle {
+                stroke-dasharray: 62.75 188.25;
+            }
+            
+            #wifi-loader svg.circle-outer circle.back {
+                animation: circle-outer135 1.8s ease infinite 0.3s;
+            }
+            
+            #wifi-loader svg.circle-outer circle.front {
+                animation: circle-outer135 1.8s ease infinite 0.15s;
+            }
+            
+            #wifi-loader svg.circle-middle {
+                height: 60px;
+                width: 60px;
+            }
+            
+            #wifi-loader svg.circle-middle circle {
+                stroke-dasharray: 42.5 127.5;
+            }
+            
+            #wifi-loader svg.circle-middle circle.back {
+                animation: circle-middle6123 1.8s ease infinite 0.25s;
+            }
+            
+            #wifi-loader svg.circle-middle circle.front {
+                animation: circle-middle6123 1.8s ease infinite 0.1s;
+            }
+            
+            #wifi-loader svg.circle-inner {
+                height: 34px;
+                width: 34px;
+            }
+            
+            #wifi-loader svg.circle-inner circle {
+                stroke-dasharray: 22 66;
+            }
+            
+            #wifi-loader svg.circle-inner circle.back {
+                animation: circle-inner162 1.8s ease infinite 0.2s;
+            }
+            
+            #wifi-loader svg.circle-inner circle.front {
+                animation: circle-inner162 1.8s ease infinite 0.05s;
+            }
+            
+            #wifi-loader .text {
+                position: absolute;
+                bottom: -40px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-transform: lowercase;
+                font-weight: 500;
+                font-size: 14px;
+                letter-spacing: 0.2px;
+            }
+            
+            #wifi-loader .text::before, #wifi-loader .text::after {
+                content: attr(data-text);
+            }
+            
+            #wifi-loader .text::before {
+                color: var(--text-color);
+            }
+            
+            #wifi-loader .text::after {
+                color: var(--front-color);
+                animation: text-animation76 3.6s ease infinite;
+                position: absolute;
+                left: 0;
+            }
+            
+            @keyframes circle-outer135 {
+                0% {
+                stroke-dashoffset: 25;
+                }
+            
+                25% {
+                stroke-dashoffset: 0;
+                }
+            
+                65% {
+                stroke-dashoffset: 301;
+                }
+            
+                80% {
+                stroke-dashoffset: 276;
+                }
+            
+                100% {
+                stroke-dashoffset: 276;
+                }
+            }
+            
+            @keyframes circle-middle6123 {
+                0% {
+                stroke-dashoffset: 17;
+                }
+            
+                25% {
+                stroke-dashoffset: 0;
+                }
+            
+                65% {
+                stroke-dashoffset: 204;
+                }
+            
+                80% {
+                stroke-dashoffset: 187;
+                }
+            
+                100% {
+                stroke-dashoffset: 187;
+                }
+            }
+            
+            @keyframes circle-inner162 {
+                0% {
+                stroke-dashoffset: 9;
+                }
+            
+                25% {
+                stroke-dashoffset: 0;
+                }
+            
+                65% {
+                stroke-dashoffset: 106;
+                }
+            
+                80% {
+                stroke-dashoffset: 97;
+                }
+            
+                100% {
+                stroke-dashoffset: 97;
+                }
+            }
+            
+            @keyframes text-animation76 {
+                0% {
+                clip-path: inset(0 100% 0 0);
+                }
+            
+                50% {
+                clip-path: inset(0);
+                }
+            
+                100% {
+                clip-path: inset(0 0 0 100%);
+                }
+            }
+        </style>
+	</head>
+	<body onload="SendData('Setting','Refresh')">
+		<div id="HomeBox">
+			<table id="TableH">
+                <tr>
+                    <td id="TH1-1">
+                        <label for="Slider1">Axis X (mm) :</label>
+                        <p>0<input type="range" id="Slider1" name="Slider1" min="0" max="500" value="0" oninput="UpdateDisplayValue('Slider1Display', this.value)" readonly>500</p>
+                    </td>
+                    <td id="TH1-2">
+                        <div id="Slider1Display" class="SliderDisplay">0</div>
+                        <br><br>
+                    </td>
+                    <td  id="TH1-3" rowspan="2">
+                        <div id="Display">Welcome</div>
+                    </td>
+                    <td id="TH1-4" rowspan="2">
+                        <button type="button" class="button2" onClick="SettingButton('home2Set',0)">Setting</button>
+						<br><br>
+						<button type="button" class="button2" onClick="SettingButton('home2About',0)">About</button>
+                    </td>	
+                </tr>
+                <tr>
+                    <td id="TH2-1">
+                        <label for="Slider2">Axis Y (mm) :</label>
+                        <br>
+                        <p>-500<input type="range" id="Slider2" name="Slider2" min="-500" max="500" value="0" oninput="UpdateDisplayValue('Slider2Display', this.value)">500</p>
+                    </td>
+                    <td id="TH2-2">
+                        <div id="Slider2Display" class="SliderDisplay">0</div>
+                        <br><br>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="TH3-1">
+                        <label for="Slider3">Axis Z (mm) :</label>
+                        <br>
+                        <p>0<input type="range" id="Slider3" name="Slider3" min="0" max="200" value="0" oninput="UpdateDisplayValue('Slider3Display', this.value)">200</p>
+                    </td>
+                    <td id="TH3-2">
+                        <div id="Slider3Display"  class="SliderDisplay">0</div>
+                        <br><br>
+                    </td>
+                    <td id="TH3-3" rowspan="2">
+                        <div id="GcodeFileBox">
+                            <input type="file" id="GcodeFile" value="Enter File" onChange="File2Text()">
+                        </div>
+                        <div id="GcodeTextBox">
+                            <textarea id="GcodeText"></textarea>
+                        </div>
+                        <div id="GcodeSendLoader" class="Loader"></div>
+                    </td>
+                    <td id="TH3-4" rowspan="2">
+                        <input type="button" id="ButtonGcodeFile" value="File" class="button5" onClick="GcodeButton('File')">
+                        <input type="button" id="ButtonGcodeText"value="Text" class="button5" onClick="GcodeButton('Text')">
+                        <input type="button" id="ButtonGcodePaint"value="Paint" class="button5" onClick="GcodeButton('Paint')">
+                        <input type="button" class="button4" value="Send" onClick="GcodeButton('Send')">
+						<br>
+                        <input type="button" class="button4" value="Run" onClick="GcodeButton('Run')">
+                        <input type="button" class="button4" value="Pause" onClick="GcodeButton('Pause')">
+						<input type="button" class="button4" value="PB" onClick="GcodeButton('pBack')">
+                        <input type="button" class="button4" value="Clear" id="ClearGcodeBoxs" onClick="GcodeButton('Clear')">
+                    </td>
+                </tr>
+                <tr>
+                    <td id="TH4-1">
+                        <label for="Slider4">Delay(ms) :</label>
+                        <br>
+                        <p>0<input type="range" id="Slider4" name="Slider4" min="0" max="5000" step="50" value="0" oninput="UpdateDisplayValue('Slider4Display', this.value)">5000</p>
+                    </td>
+                    <td id="TH4-2">
+                        <div id="Slider4Display"  class="SliderDisplay">0</div>
+                        <br><br>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="TH5-1" colspan="2">
+                        <input type="button" class="button1" value="Move" onClick="Move()">
+                        <input type="button" class="button1" value="Reset" onclick="ResetValue()">
+                        <input type="button" class="button1" value="Program" onclick="GetPosition(0,'Web')">
+                    </td>
+                    <td id="TH5-2" colspan="1">
+                        <div id="PositionsBox1">
+							<input type="button" class="button3" value="Position1" id="Position1" onClick="PositionButtons('showPositionVal',0)">
+							<input type="button" class="button3" value="Position6" id="Position6" onClick="PositionButtons('showPositionVal',5)">
+							<br>
+							<input type="button" class="button3" value="Position2" id="Position2" onClick="PositionButtons('showPositionVal',1)">
+							<input type="button" class="button3" value="Position7" id="Position7" onClick="PositionButtons('showPositionVal',6)">
+							<br>
+							<input type="button" class="button3" value="Position3" id="Position3" onClick="PositionButtons('showPositionVal',2)">
+							<input type="button" class="button3" value="Position8" id="Position8" onClick="PositionButtons('showPositionVal',7)">
+							<br>
+							<input type="button" class="button3" value="Position4" id="Position4" onClick="PositionButtons('showPositionVal',3)">
+							<input type="button" class="button3" value="Position9" id="Position9" onClick="PositionButtons('showPositionVal',8)">
+							<br>
+							<input type="button" class="button3" value="Position5" id="Position5" onClick="PositionButtons('showPositionVal',4)">
+							<input type="button" class="button3" value="Position10" id="Position10" onClick="PositionButtons('showPositionVal',9)">
+                        </div>
+                    </td>
+                    <td id="TH5-3">
+                        <input type="button" value="Run" class="button7" onClick="PositionButtons('runPosition',0)">
+						<br><br>
+                        <input type="button" value="Pause" class="button7" onClick="PositionButtons('pausePosition',0)">
+						<br><br>
+						<input type="button" value="PB" class="button7" onClick="PositionButtons('pBackPosition',0)">
+						<br><br>
+                        <input type="button" value="Clear" class="button7" onClick="PositionButtons('clearPosition',0)">
+                    </td>
+                </tr>
+			</table>
+		</div>
+
+		<div id="SettingBox">
+			<table  id="TableS">
+				<tr>
+					<td id="TS1-1"  colspan="2">
+						<h2>Setting</h2>
+					</td>	
+				</tr>
+				<tr>
+					<td id="TS2-1" onClick="SettingButton('basicSet',0)">
+						<P>Basic <br> setting</P>
+					</td>
+					<td id="TS2-2" rowspan="3">
+						<div id="BasicSettingBox">
+							<h3>Basic setting</h3>
+							<br><br><br>
+							<label>Set Speed :</label>
+							<input type="number" id="Set0" value="500" step="100" onchange="SettingInput('Set',0)"> Pulse/s
+							<br><br>
+							<label>Set kinematic type :</label>
+							<select id="Set1" onchange="SettingInput('Set',1)">
+								<option value=0>Inverse</option>
+								<option value=1>Forward</option>
+							</select>
+							<br><br>
+							<label>Set pulse/rev :</label>
+							<select id="Set2" onchange="SettingInput('Set',2)">
+								<option value=0>800 ppr</option>
+								<option value=1>1600 ppr</option>
+								<option value=2 selected>3200 ppr</option>
+								<option value=3>6400 ppr</option>
+							</select>
+						</div>
+						<div id="AdvancedsettingBox">
+							<table id="TS_As">
+								<tr>
+									<td colspan="2" id="TS_As1-1">
+										<h3>Advanced setting</h3>
+									</td>
+								</tr>
+								<tr>
+									<td id="TS_As2-1" onClick="SettingButton('As',1)">
+										<div>Stp motor1</div>
+									</td>
+									<td rowspan="5" id="TS_As2-2">
+										<div id="AdvSetBox1">
+											<h4 style="text-align:center;">Step Motor1</h4>
+											<label>Set speed :</label>
+											<input type="number" id="Set3" value="500" step="100" onchange="SettingInput('Set',3)">
+											<br><br>
+											<label>Set pulse/rev :</label>
+											<select id="Set4" onchange="SettingInput('Set',4)">
+												<option value=0>800 ppr</option>
+												<option value=1>1600 ppr</option>
+												<option value=2 selected>3200 ppr</option>
+												<option value=3>6400 ppr</option>
+											</select>
+											<br><br>
+										</div>
+										<div id="AdvSetBox2">
+											<h4 style="text-align:center;">Step Motor2</h4>
+											<label>Set speed :</label>
+											<input type="number" id="Set5" value="500" step="100" onchange="SettingInput('Set',5)">
+											<br><br>
+											<label>Set pulse/rev :</label>
+											<select id="Set6" onchange="SettingInput('Set',6)">
+												<option value=0>800 ppr</option>
+												<option value=1>1600 ppr</option>
+												<option value=2 selected>3200 ppr</option>
+												<option value=3>6400 ppr</option>
+											</select>
+											<br><br>
+										</div>
+										<div id="AdvSetBox3">
+											<h4 style="text-align:center;">Step Motor3</h4>
+											<label>Set speed :</label>
+											<input type="number" id="Set7" value="500" step="100" onchange="SettingInput('Set',7)">
+											<br><br>
+											<label>Set pulse/rev :</label>
+											<select id="Set8" onchange="SettingInput('Set',8)">
+												<option value=0>800 ppr</option>
+												<option value=1>1600 ppr</option>
+												<option value=2 selected>3200 ppr</option>
+												<option value=3>6400 ppr</option>
+											</select>
+											<br><br>
+										</div>
+										<div id="AdvSetBox4">
+											<h4 style="text-align:center;">Dementional value</h4>
+											<label>Joint lenghe1:</label>
+											<input type="number" id="Set9" value="300" onchange="SettingInput('Set',9)">(mm)
+											<br><br>
+											<label>Joint lenghe2:</label>
+											<input type="number" id="Set10" value="200" onchange="SettingInput('Set',10)">(mm)
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td id="TS_As3-1" onClick="SettingButton('As',2)">
+										<div>Stp motor2</div>
+									</td>
+								</tr>
+								<tr>
+									<td id="TS_As4-1" onClick="SettingButton('As',3)">
+										<div>Stp motor3</div>
+									</td>
+								</tr>
+								<tr>
+									<td id="TS_As5-1" onClick="SettingButton('As',4)">
+										<div>Dementional value</div>
+									</td>
+								</tr>
+							</table>
+						</div>
+						<div id="HomingSettingBox">
+							<h3>Homing setting</h3>
+							<button id="Set11" value="Auto Homing" onclick="SettingInput('Button',11)">Auto Homing</button>
+							<br><br>
+							<h4>Manual homing</h4>
+							<button id="Set12" value="Home X" onclick="SettingInput('Button',12)">Home Joint1 </button>
+							<br><br>
+							<button id="Set13" value="Home Y" onclick="SettingInput('Button',13)">Home Joint2 </button>
+							<br><br>
+							<button id="Set14" value="Home Z" onclick="SettingInput('Button',14)">Home Joint3 </button>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td id="TS3-1" onClick="SettingButton('advancedSet',0)">
+						<p>Advanced setting</p>
+					</td>
+				</tr>
+				<tr>
+					<td id="TS4-1" onClick="SettingButton('hommingSet',0)">
+						<div id="Com Homing setting">Homing<br>setting</div>
+					</td>
+				</tr>
+			</table>
+			<button type="button" class="button6" onClick="SettingButton('back2Home',0)">Back</button>
+		</div>
+		<div id="PaintBox">
+			<table>
+				<tr>
+					<td>
+						<label for="zMin">Z G1:</label>
+						<br><br>
+						0<input type="range" id="zMin" name="zMin" min="0" max="100" value="20">100
+					</td>
+					<td>
+						<div class="SliderDisplay"><span id="zMinValue">20</span></div>
+					</td>
+					<td>
+						<label for="zMax">Z G0:</label>
+						<br><br>
+						0<input type="range" id="zMax" name="zMax" min="0" max="100" value="80">100
+					</td>
+					<td>
+						<div class="SliderDisplay"><span id="zMaxValue">80</span></div>
+					</td>
+					<td>
+						<button id="DownGcodeBut" class="button6">Download G-code</button>
+						<button id="Paint2Home" class="button6" onClick="GcodeButton('back2Home')">Back</button>
+						<button id="ClearPaint" class="button6">Clear</button>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="5">
+						<canvas id="PaintCanvas" width="500" height="1000" style="background-color: white;"></canvas>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<Div id="AboutBox">
+			<h3>Scara robat controler</h3>
+			<p>
+				nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+				nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+				nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+				nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+				nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+			</p>
+			<button  class="button2" onClick="SettingButton('about2Home',0)">Back</button>
+		</Div>
+		<div id="wifi-loader">
+			<svg class="circle-outer" viewBox="0 0 86 86">
+				<circle class="back" cx="43" cy="43" r="40"></circle>
+				<circle class="front" cx="43" cy="43" r="40"></circle>
+				<circle class="new" cx="43" cy="43" r="40"></circle>
+			</svg>
+			<svg class="circle-middle" viewBox="0 0 60 60">
+				<circle class="back" cx="30" cy="30" r="27"></circle>
+				<circle class="front" cx="30" cy="30" r="27"></circle>
+			</svg>
+			<svg class="circle-inner" viewBox="0 0 34 34">
+				<circle class="back" cx="17" cy="17" r="14"></circle>
+				<circle class="front" cx="17" cy="17" r="14"></circle>
+			</svg>
+			<div class="text" data-text="Loading"></div>
+		</div>
+        <script>
+          "use strict"
+            var x = 0;
+            var y = 0;
+            var z = 0;
+            var t = 0;
+            var q = 0;
+            var Mx=[],My=[],Mz=[],Mt=[];
+            var GcodeSend = false;
+            var SendGcode = false;
+            var RunPositions = false;
+            var RunGcode = false;
+
+            window.onload = function () {
+                SendData("BackEnd","Refresh");
+            };
+
+            function UpdateDisplayValue(displayId, val) {
+                document.getElementById(displayId).textContent = val;
+                if(displayId=='Slider1Display'){ x=val;}
+                else if(displayId=='Slider2Display'){ y=val;}
+                else if(displayId=='Slider3Display'){ z=val;}
+                else if(displayId=='Slider4Display'){ t=val;}   
+            }
+
+            function Move () {
+                if(checkPointInRange (x,y)==true){
+                    SendData("move","X"+x+" Y"+y+" Z"+z);
+                }
+            }
+
+            function ResetValue() {
+                    for(var a=1;a<=4;a++){
+                        document.getElementById('Slider'+a+'Display').textContent = 0;
+                    }
+                    for(var b=1;b<5;b++){
+                        document.getElementById('Slider'+b).value=0;
+                    }
+                    x=0; y=0; z=0; t=0;	
+            }
+
+            function GcodeButton(val) {
+                if (SendGcode !== false) {
+                    return window.alert("Sending Code, please wait.");
+                }
+
+                const toggleVisibility = (show, hide) => {
+                    document.getElementById(show).style.display = 'block';
+                    document.getElementById(hide).style.display = 'none';
+                };
+
+                switch (val) {
+                    case "File":
+                        document.getElementById('ButtonGcodeText').style.backgroundColor = '#FFFFFF';
+                        document.getElementById('ButtonGcodeFile').style.backgroundColor = '#00E820';
+                        toggleVisibility('GcodeFileBox', 'GcodeTextBox');
+                        break;
+
+                    case "Text":
+                        document.getElementById('ButtonGcodeText').style.backgroundColor = '#00E820';
+                        document.getElementById('ButtonGcodeFile').style.backgroundColor = '#FFFFFF';
+                        toggleVisibility('GcodeTextBox', 'GcodeFileBox');
+                        break;
+
+                    case "Paint":
+                        toggleVisibility('PaintBox', 'HomeBox');
+                        Paint();
+                        break;
+
+                    case "back2Home":
+                        toggleVisibility('HomeBox', 'PaintBox');
+                        break;
+
+                    case "Clear":
+                        if(RunGcode == true){
+                            return window.alert("Codes are Running !!!");
+                        }
+                        GcodeSend=false;
+                        document.getElementById('GcodeText').value = null;
+                        document.getElementById('GcodeFile').value = null;
+                        SendData("code", "Clear");
+                        document.getElementById('Display').innerText="Code cleared";
+                        break;
+
+                    case "Run":
+                        if(RunPositions == true){
+                            return window.alert("Positions are Running !!!");
+                        }
+                        if(RunGcode == true){
+                            return window.alert("Code are Running !!!");
+                        }
+                        if(GcodeSend == false){
+                            return window.alert("There is no Code to run !!!");
+                        }
+                        RunGcode = true;
+                        SendData("code", val);
+                        document.getElementById('Display').innerText="Code are running";
+                        break;
+
+                    case "Pause":
+                        if(RunPositions == true){
+                            return window.alert("Positions are Running !!!")
+                        }
+                        if(RunGcode == false){
+                            return window.alert("Code are Stopping !!!")
+                        }
+                        RunGcode = false;
+                        SendData("code", val);
+                        document.getElementById('Display').innerText="Code are stopping";
+                        break;
+
+                    case "pBack":
+                        if(RunPositions == true){
+                            return window.alert("Positions are Running !!!")
+                        }
+                        RunGcode = false;
+                        SendData("code", val);
+                        document.getElementById('Display').innerText="Code are stopping";
+                        break;
+
+                    case "Send":
+                        if(document.getElementById('GcodeText').value.trim()===''){
+                            return window.alert("Not Code found to send !!!")
+                        }
+                        document.getElementById('Display').innerText="Sending Code ....";
+                        GcodeSend=true;
+                        const inputText = document.getElementById('GcodeText').value;
+                        const lines = inputText.split('\n').map(line => line.trim()).filter(line => line);
+                        let numLine = 1;
+
+                        toggleVisibility('GcodeSendLoader', 'GcodeTextBox');
+                        document.getElementById('GcodeFileBox').style.display = 'none';
+                        SendGcode = true;
+
+                        (function sendLine(index) {
+                            if (index >= lines.length) {
+                                SendData('code', 'EndSendingCode'); 
+                                return;
+                            }
+                            const currentLine = lines[index];
+                            if (/[XYZ]/.test(currentLine)) {
+                                SendData('code', `${currentLine}(${numLine++})`);
+                            }
+                            setTimeout(() => sendLine(index + 1), 50);
+                        })(0);
+                        break;
+                        
+                    case "End":
+                        toggleVisibility('GcodeTextBox', 'GcodeSendLoader');
+                        document.getElementById('GcodeFileBox').style.display = 'none';
+                        document.getElementById('Display').innerText="Code have been sent";
+                        break;
+                }
+            }
+
+
+            function SettingButton(val1,val2){
+                switch(val1){
+
+                    case "home2About":
+                        document.getElementById('HomeBox').style.display='none';
+                        document.getElementById('AboutBox').style.display='block';
+                        break;
+
+                    case "about2Home":
+                        document.getElementById('AboutBox').style.display='none';
+                        document.getElementById('HomeBox').style.display='block';
+                        break;
+                            
+                    case "home2Set":
+                        document.getElementById('HomeBox').style.display='none';
+                        document.getElementById('SettingBox').style.display='block';
+                        break;
+
+                    case "back2Home":
+                        document.getElementById('SettingBox').style.display='none';
+                        document.getElementById('HomeBox').style.display='block';	
+                        document.getElementById('BasicSettingBox').style.display='block';
+                        document.getElementById('AdvancedsettingBox').style.display='none';
+                        document.getElementById('HomingSettingBox').style.display='none';
+                        break;
+                    
+                    case "basicSet":
+                        document.getElementById('BasicSettingBox').style.display='block';
+                        document.getElementById('AdvancedsettingBox').style.display='none';
+                        document.getElementById('HomingSettingBox').style.display='none';
+                        break;
+
+                    case "advancedSet":
+                        document.getElementById('BasicSettingBox').style.display='none';
+                        document.getElementById('AdvancedsettingBox').style.display='block';
+                        document.getElementById('HomingSettingBox').style.display='none';
+                        break;
+
+                    case "hommingSet":
+                        document.getElementById('BasicSettingBox').style.display='none';
+                        document.getElementById('AdvancedsettingBox').style.display='none';
+                        document.getElementById('HomingSettingBox').style.display='block';
+                        break;
+
+                    case "As":
+                        for(var a=1;a<5;a++){
+                            if(a==val2){
+                                document.getElementById('AdvSetBox'+a).style.display='block';
+                            }else{
+                                document.getElementById('AdvSetBox'+a).style.display='none';
+                            }
+                        }
+                        break;
+
+                }
+            }
+
+            function SettingInput(val1,val2){
+                var buffer;
+                switch(val1){
+                    case"Set":
+                        const inputs = document.querySelectorAll('input[type="range"],input[type="button"],div[class="SliderDisplay"],textarea');
+                        var value = document.getElementById("Set"+val2).value;
+
+                        if(val2==0){
+                            for(var i=3;i<8;i+=2){
+                            document.getElementById("Set"+i).value = value;
+                            buffer = "setting P"+i+" ="+value;
+                            SendData('setting',buffer);
+                            }
+                        }else if(val2==2){
+                            for(var i=4;i<9;i+=2){
+                                document.getElementById("Set"+i).value = value;
+                                buffer = "setting P"+i+" ="+value;
+                                SendData('setting',buffer);
+                            }
+                        }
+
+                        if(val2==1){
+                            if(document.getElementById('Set1').value==0){
+                                inputs.forEach(input =>{
+                                    input.disabled = false;
+                                    input.style.color='';
+                                    input.style.pointerEvents='';
+                                    input.style.opacity='';
+                                });
+                            }else if(document.getElementById('Set1').value==1){
+                                inputs.forEach(input =>{
+                                    input.disabled = true;
+                                    input.style.color='#666';
+                                    input.style.pointerEvents='none';
+                                    input.style.opacity='0.6';
+                                });
+                            }
+                            
+                        }
+                        buffer = "setting P"+val2+" ="+value;
+                        SendData('setting',buffer);
+                        break;
+
+                    case"Button":
+                        if(val2==11){
+                            buffer = "setting AutoHoming";
+                        }else if(val2==12){
+                            buffer = "setting Joint1";
+                        }else if(val2==13){
+                            buffer = "setting Joint2";
+                        }else if(val2==14){
+                            buffer = "setting Joint3";
+                        }
+                        SendData('setting',buffer);
+                        break;
+                } 
+            }
+
+            function PositionButtons(val1,val2){
+                if (SendGcode !== false) {
+                    return window.alert("Sending Gcode, please wait.");
+                }
+                
+                switch(val1){
+                    case"buttonColor":
+                        document.getElementById('Position'+val2).style.backgroundColor='#00E820';
+                        for(var a=1;a<11;a++){
+                            if(a === (val2+1)){   
+                                document.getElementById('Position'+(val2+1)).style.borderColor='#00E820';
+                            }else{
+                                document.getElementById('Position'+a).style.borderColor='#000000';
+                            } 
+                        }   
+                        break;
+                    case"showPositionVal":
+                        if(val2>q-1){break;}
+                        document.getElementById('Slider1').value=Mx[val2];
+                        document.getElementById('Slider2').value=My[val2];
+                        document.getElementById('Slider3').value=Mz[val2];
+                        document.getElementById('Slider4').value=Mt[val2];
+                        document.getElementById('Slider1Display').innerHTML=Mx[val2];
+                        document.getElementById('Slider2Display').innerHTML=My[val2];
+                        document.getElementById('Slider3Display').innerHTML=Mz[val2];
+                        document.getElementById('Slider4Display').innerHTML=Mt[val2];
+                        break;
+                    
+                    case"clearPosition":
+                        if(RunPositions==true){
+                            window.alert("Positions are Running !!!");
+                            break;
+                        }
+
+                        for(var a=1;a<11;a++){
+                            document.getElementById('Position'+a).style.backgroundColor='#FFFFFF';
+                            document.getElementById('Position'+a).style.borderColor='#000000';
+                            Mx[a]=null;
+                            My[a]=null;
+                            Mz[a]=null;
+                            Mt[a]=null;
+                        }
+                        q=0;
+                        document.getElementById('Position1').style.borderColor='#00E820';
+                        document.getElementById('Display').innerText="Positions cleared"; 
+                        if(val2<5){
+                            SendData('Positions','Clear');
+                        }
+                        break;
+
+                    case"pausePosition":
+                        if(RunGcode==true){
+                            window.alert("Code are Running !!!");
+                            break;
+                        }
+                        if(RunPositions==false){
+                            window.alert("Positions are Stopping !!!");
+                            break;
+                        }
+                        RunPositions = false;
+                        SendData('Positions','Pause');
+                        document.getElementById('Display').innerText="Positions are stopping";
+                        break;
+
+                    case"pBackPosition":
+                        if(RunGcode==true){
+                            window.alert("Code are Running !!!");
+                            break;
+                        }
+                        RunPositions = false;
+                        SendData('Positions','pBack');
+                        document.getElementById('Display').innerText="Positions are stopping";
+                        break;
+
+                    case"runPosition":
+                        if(RunGcode==true){
+                            window.alert("Code are Running !!!");
+                            break;
+                        }
+                        if(RunPositions==true){
+                            window.alert("Positions are Running !!!");
+                            break;
+                        }
+                        if(q<=0){
+                            window.alert("There is no Positions to run !!!");
+                            break;
+                        }
+                        RunPositions = true;
+                        SendData('Positions','Run');
+                        document.getElementById('Display').innerText="Positions are running";
+                        break;         
+                }
+            }
+
+
+            function File2Text() {
+                var content = document.getElementById('GcodeText');
+                var file = document.getElementById('GcodeFile').files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.addEventListener("load", function() {
+                        content.value = reader.result; 
+                    }, false);
+                    reader.readAsText(file);
+                } else {
+                    console.error("No file selected or file type is incorrect.");
+                }
+            }
+
+            function SendData(val1,val2){
+                const MyRequesd = new XMLHttpRequest();
+                MyRequesd.open("GET","http://192.168.4.1/Receive?"+encodeURIComponent(val1)+"="+encodeURIComponent(val2)+"");
+                MyRequesd.send();
+                MyRequesd.onerror=function(){	
+                    window.alert("Connection eror");
+                }
+            }
+
+            function ReceiveData() {
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        ProcessReciveData(this.responseText);
+                    } else if (this.readyState == 4) {
+                        //window.alert("Connection failed");
+                    }
+                };
+                xhttp.open('GET', 'http://192.168.4.1/Send', true);
+                xhttp.send();
+            }
+
+            function ProcessReciveData(val){
+                if (val.slice(0,9) === "Positions") {
+                    if (val.slice(0,15) === "Positions Clear"){
+                        PositionButtons("clearPosition",10);
+                        document.getElementById('Display').innerText="Positions cleared";
+                    }else if(val.slice(0,13) === "Positions Run"){
+                        RunPositions=true;
+                        document.getElementById('Display').innerText="Positions are running";
+                    }else if(val.slice(0,15) === "Positions Pause"){
+                        RunPositions=false;
+                        document.getElementById('Display').innerText="Positions are stopping";
+                    }else if(val.slice(0,15) === "Positions pBack"){
+                        RunPositions=false;
+                        document.getElementById('Display').innerText="Positions are stopping";
+                    }else{
+                        GetPosition(val,"Serial");
+                    }   
+                }else if (val.slice(0,4) === "Code") {
+                    if (val.slice(0,10) === "Code Clear"){
+                        GcodeButton("Clear");
+                        document.getElementById('Display').innerText="Code cleared";
+                    }else if(val.slice(0,8) === "Code Run"){
+                        RunGcode=true;
+                        document.getElementById('Display').innerText="Code are running";
+                    }else if(val.slice(0,10) === "Code Pause"){
+                        RunGcode=false;
+                        document.getElementById('Display').innerText="Code are stopping";
+                    }else if(val.slice(0,10) === "Code pBack"){
+                        RunGcode=false;
+                        document.getElementById('Display').innerText="Code are stopping";
+                    }
+                }else if (val.slice(0,7) === "Setting") {
+                    GetAndSendSetting(val,"Get");
+                }else if (val.slice(0,5) === "Start") {
+                    document.getElementById('wifi-loader').style.display='none';
+                    document.getElementById('HomeBox').style.display='block';
+                }else if (val.slice(0,18) === "End positions move") {
+                    RunPositions=false;
+                    document.getElementById('Display').innerText="End positions move";
+                }else if (val.slice(0,14) === "End code move") {
+                    RunGcode=false;
+                    document.getElementById('Display').innerText="End code move";
+                }else if (val.slice(0,3) === "End") {
+                    SendGcode = false;
+                    GcodeButton("End");
+                }
+            }
+
+            function GetAndSendSetting(val1,val2){
+                var NumSet = 0;
+                if(val2 === "Get"){
+                    const parts = val1.split(' ');
+                    for (let part of parts) {
+                        const key = part.charAt(0);
+                        const number = part.slice(1);
+                        if (key === "P") {
+                            NumSet=(Number(number));
+                        }else if (key === "=") {
+                            document.getElementById("Set"+(NumSet)).value = (Number(number));
+
+                            if(NumSet==0){
+                                for(var i=3;i<8;i+=2){
+                                    document.getElementById("Set"+i).value = (Number(number));
+                                }
+                            }else if(NumSet==2){
+                                for(var i=4;i<9;i+=2){
+                                    document.getElementById("Set"+i).value = (Number(number));
+                                }
+                            }else if(NumSet==1){
+                                const inputs = document.querySelectorAll('input[type="range"],input[type="button"],div[class="SliderDisplay"],textarea');
+                                if(document.getElementById('Set1').value==0){
+                                    inputs.forEach(input =>{
+                                        input.disabled = false;
+                                        input.style.color='';
+                                        input.style.pointerEvents='';
+                                        input.style.opacity='';
+                                    });
+                                }else if(document.getElementById('Set1').value==1){
+                                    inputs.forEach(input =>{
+                                        input.disabled = true;
+                                        input.style.color='#666';
+                                        input.style.pointerEvents='none';
+                                        input.style.opacity='0.6';
+                                    });
+                                }
+                            }
+                        }    
+                        
+                    }
+                    SettingButton("Bs_Set3",0);
+                }
+            }
+
+            function GetPosition(val1,val2) {
+
+                if (SendGcode !== false) {
+                    return window.alert("Sending Gcode, please wait.");
+                }
+                var NumPosition ;
+                if(val2 === "Serial"){
+                    const parts = val1.split(' ');
+                    for (let part of parts) {
+                        const key = part.charAt(0);
+                        const number = part.slice(1);
+                        if (key === "I") {
+                            NumPosition=(Number(number));
+                        }else if (key === "X") {
+                            Mx[NumPosition-1]=(Number(number));
+                        } else if (key === "Y") {
+                            My[NumPosition-1]=(Number(number));
+                        } else if (key === "Z") {
+                            Mz[NumPosition-1]=(Number(number));
+                        } else if (key === "T") {
+                            Mt[NumPosition-1]=(Number(number));
+                        } 
+                    }
+                    q=NumPosition;
+                    PositionButtons("buttonColor",NumPosition);
+                }else if(val2 === "Web"){
+                    
+                    if(checkPointInRange (x,y)==false){
+                        return;
+                    }
+                    if(Mx[q-1]==x && My[q-1]==y && Mz[q-1]==z){
+                        return window.alert("Repeat the Position again !!! ")
+                    }
+                    var PositionLine = "I"+(q+1)+"= X"+x+" Y"+y+" Z"+z+" T"+t+"";
+                    Mx[q]=x;
+                    My[q]=y;
+                    Mz[q]=z;
+                    Mt[q]=t;
+                    q++;
+                    SendData('Positions',PositionLine);
+                    PositionButtons("buttonColor",q);
+
+                }
+            }
+
+            function checkPointInRange (x,y) {
+                const r = 500; 
+                const innerR = 165; 
+                const isInsideBigCircle = x >= 0 && x <= r && Math.abs(y) <= r && x * x + y * y <= r * r;
+                const isOutsideSmallCircle = x * x + y * y > innerR * innerR;
+                if (!isInsideBigCircle || !isOutsideSmallCircle) {
+                    alert('Error: The point is out of the allowed range!');
+                    return false; 
+                }
+                return true; 
+            };
+
+            function Paint() {
+                const canvas = document.getElementById('PaintCanvas');
+                const ctx = canvas.getContext('2d');
+                canvas.width = 500; 
+                canvas.height = 1000;
+
+                let painting = false, path = [], brushColor = '#000000', brushSize = 1;
+                let zMin = parseFloat(document.getElementById('zMin').value);
+                let zMax = parseFloat(document.getElementById('zMax').value);
+
+                document.getElementById('zMin').addEventListener('input', function () {
+                    zMin = this.value;
+                    document.getElementById('zMinValue').textContent = zMin;
+                });
+                document.getElementById('zMax').addEventListener('input', function () {
+                    zMax = this.value;
+                    document.getElementById('zMaxValue').textContent = zMax;
+                });
+
+                const getMousePos = e => {
+                    const rect = canvas.getBoundingClientRect();
+                    const x = e.clientX - rect.left; 
+                    const y = 500-(e.clientY - rect.top);
+                    return { x, y };
+                };
+
+                const drawCoordinateSystem = () => {
+                    const centerX = 0; 
+                    const centerY = 500; 
+                    const step = 10; 
+                    ctx.lineWidth = 0.5;
+                    for (let i = centerY; i <= canvas.height; i += step) {
+                        ctx.beginPath();
+                        ctx.moveTo(0, i);
+                        ctx.lineTo(canvas.width, i);
+                        ctx.strokeStyle = '#D3D3D3'; 
+                        ctx.stroke();
+                    }
+                    for (let i = centerY; i >= 0; i -= step) {
+                        ctx.beginPath();
+                        ctx.moveTo(0, i);
+                        ctx.lineTo(canvas.width, i);
+                        ctx.strokeStyle = '#D3D3D3'; 
+                        ctx.stroke();
+                    }
+
+                    for (let i = centerX; i <= canvas.width; i += step) {
+                        ctx.beginPath();
+                        ctx.moveTo(i, 0);
+                        ctx.lineTo(i, canvas.height);
+                        ctx.strokeStyle = '#D3D3D3';
+                        ctx.stroke();
+                    }
+
+                    ctx.beginPath();
+                    ctx.moveTo(centerX, 0);
+                    ctx.lineTo(centerX, canvas.height);
+                    ctx.strokeStyle = 'black';
+                    ctx.stroke();
+
+                    ctx.beginPath();
+                    ctx.moveTo(0, centerY);
+                    ctx.lineTo(canvas.width, centerY);
+                    ctx.strokeStyle = 'black';
+                    ctx.stroke();
+                };
+                
+                const isInsideSemiCircle = (x, y) => {
+                    const r = 500;
+                    const isInsideBigCircle = x >= 0 && x <= r && Math.abs(y) <= r && x * x + y * y <= r * r;
+                    return isInsideBigCircle;
+                };
+
+                const isInsideGrayCircle = (x, y) => {
+                    const innerR = 165; 
+                    return x * x + y * y <= innerR * innerR;
+                };
+
+                const drawInnerSemiCircle = () => {
+                    const innerR = 165;
+                    ctx.beginPath();
+                    ctx.arc(0, 500, innerR, 3*(Math.PI)/2, (Math.PI)/2, false);
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.2)'; 
+                    ctx.fill();
+                    stopDrawing();
+                };
+
+                const startDrawing = e => {
+                    painting = true;
+                    path.push([]);
+                    draw(e);
+                };
+                const stopDrawing = () => {
+                    painting = false;
+                    ctx.beginPath();
+                };
+
+                const draw = e => {
+                    if (!painting) return;
+                    const { x, y } = getMousePos(e);
+                    if (isInsideGrayCircle(x, y)) { 
+                        stopDrawing(); 
+                        return; 
+                    }
+                    if (!isInsideSemiCircle(x, y)) {
+                        stopDrawing(); 
+                        return; 
+                    }
+
+                    ctx.lineWidth = brushSize;
+                    ctx.lineCap = 'round';
+                    ctx.strokeStyle = brushColor;
+
+                    ctx.lineTo(x, 500 - y); 
+                    ctx.stroke();
+                    ctx.beginPath();
+                    ctx.moveTo(x, 500 - y);
+
+                    path[path.length - 1].push({ x, y, z: zMin });
+                };
+
+                const clearCanvas = () => {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    path = [];
+                    drawCoordinateSystem(); 
+                    drawInnerSemiCircle(); 
+                };
+
+                ['ClearPaint'].forEach(id =>
+                    document.getElementById(id).addEventListener('click', clearCanvas)
+                );
+
+                const optimizePath = segment => {
+                    const optimized = [];
+                    if (segment.length < 2) return segment;
+
+                    let start = segment[0];
+                    for (let i = 1; i < segment.length; i++) {
+                        const prev = segment[i - 1];
+                        const current = segment[i];
+
+                        if ((current.x - prev.x) * (prev.y - start.y) !== (prev.x - start.x) * (current.y - prev.y)) {
+                            optimized.push(start);
+                            start = prev;
+                        }
+                    }
+                    optimized.push(start);
+                    optimized.push(segment[segment.length - 1]);
+                    return optimized;
+                };
+
+                const generateGcode = () => {
+                    const gcode = ["G21 ; Set units to millimeters", "G90 ; Absolute positioning"];
+                    path.forEach(segment => {
+                        const optimizedSegment = optimizePath(segment);
+                        if (optimizedSegment.length) {
+                            gcode.push(`G0 X${optimizedSegment[0].x.toFixed(2)} Y${optimizedSegment[0].y.toFixed(2)} Z${zMax.toFixed(2)}`);
+                            optimizedSegment.forEach(({ x, y, z }) =>
+                                gcode.push(`G1 X${x.toFixed(2)} Y${y.toFixed(2)} Z${z.toFixed(2)}`)
+                            );
+                        }
+                    });
+                    gcode.push("M2 ; End of program");
+                    return gcode.join("\n");
+                };
+
+                document.getElementById('DownGcodeBut').addEventListener('click', () => {
+                    document.getElementById('GcodeText').value = generateGcode();
+                });
+
+                canvas.addEventListener('mousedown', startDrawing);
+                canvas.addEventListener('mouseup', stopDrawing);
+                canvas.addEventListener('mousemove', draw);
+                canvas.addEventListener('mouseleave', stopDrawing);
+                canvas.addEventListener('touchstart', e => { e.preventDefault(); startDrawing(e.touches[0]); });
+                canvas.addEventListener('touchend', stopDrawing);
+                canvas.addEventListener('touchmove', e => { e.preventDefault(); draw(e.touches[0]); });
+
+                drawCoordinateSystem();
+                drawInnerSemiCircle();
+            }
+
+            setInterval(ReceiveData, 50);
+        </script>
+	</body>
+</html>
